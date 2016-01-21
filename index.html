@@ -9,7 +9,7 @@
 <body>
 	<header class="mui-bar mui-bar-nav">
 		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-		<h1 class="mui-title">input（输入框）</h1>
+		<h1 class="mui-title">任务管理</h1>
 	</header>
 	<div class="mui-content">
 		<div class="mui-content-padded" style="margin: 5px;">
@@ -19,8 +19,16 @@
 					<input type="text" placeholder="普通输入框">
 				</div-->
 				<div class="mui-input-row">
-					<label>Input</label>
-					<input type="text" class="mui-input-clear" placeholder="带清除按钮的输入框">
+					<label>内容</label>
+					<input type="text" class="mui-input-clear" placeholder="内容">
+				</div>
+				<div class="mui-input-row">
+					<label>分数</label>
+					<input type="text" class="mui-input-clear" placeholder="分数" value="10">
+				</div>
+				<div class="mui-input-row">
+					<label>结束时间</label>
+					<input type="text" class="mui-input-clear" placeholder="结束时间" value="10">
 				</div>
 
 				<!--div class="mui-input-row mui-plus-visible">
@@ -37,13 +45,13 @@
     <script src="js/mui.min.js"></script>
     <script type="text/javascript" charset="utf-8">
       	mui.init();
-		var OpenWClass = "open-window-other";
-		var state = app.getState();
-		console.log(JSON.stringify(state));
-		console.log(state["userName"]);
-		if ( state["userName"] != undefined && state["userName"] != "" ) {
-			$("#login").html(state["userName"]).addClass(OpenWClass);
-		}
+//		var OpenWClass = "open-window-other";
+//		var state = app.getState();
+//		console.log(JSON.stringify(state));
+//		console.log(state["userName"]);
+//		if ( state["userName"] != undefined && state["userName"] != "" ) {
+//			$("#login").html(state["userName"]).addClass(OpenWClass);
+//		}
     </script>
 </body>
 </html>
