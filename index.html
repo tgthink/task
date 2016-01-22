@@ -28,7 +28,7 @@
 				</div>
 				<div class="mui-input-row">
 					<label>结束时间</label>
-					<input type="text" class="mui-input-clear" placeholder="结束时间" value="10">
+					<input id="endTime" type="text" class="mui-input-clear" placeholder="结束时间" value="10">
 				</div>
 
 				<!--div class="mui-input-row mui-plus-visible">
@@ -43,8 +43,12 @@
 		</div>
 	</div>
     <script src="js/mui.min.js"></script>
+    <script src="js/zepto_1.1.3.js"></script>
     <script type="text/javascript" charset="utf-8">
       	mui.init();
+      	var currentDate = new Date();
+      	currentDate.setDate(currentDate.getDate() + 1);
+      	$("#endTime").val(currentDate.toLocaleString());
 //		var OpenWClass = "open-window-other";
 //		var state = app.getState();
 //		console.log(JSON.stringify(state));
