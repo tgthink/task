@@ -69,20 +69,30 @@
 	<script src="./js/public.js"></script>
     <script type="text/javascript" charset="utf-8">
       	mui.init();
-      	var tomorrowDate = new Date();
-      	tomorrowDate.setDate(tomorrowDate.getDate() + 1);
-      	
-      	var tomorrowDateMinutes = tomorrowDate.getMinutes();
-      	if ( tomorrowDateMinutes < 10 ) {
-      		tomorrowDateMinutes = "0" + tomorrowDateMinutes;
+      	function getEndTime () {
+      		
+	      	var tomorrowDate = new Date();
+	      	tomorrowDate.setDate(tomorrowDate.getDate() + 1);
+	      	var tomorrowDateMonth = tomorrowDate.getMonth();
+	      	tomorrowDateMonth += 1;
+	      	var tomorrowDateMinutes = tomorrowDate.getMinutes();
+	      	if ( tomorrowDateMinutes < 10 ) {
+	      		tomorrowDateMinutes = "0" + tomorrowDateMinutes;
+	      	}
+	      	console.log(tomorrowDate.getMonth());
+	      	var dateStr = tomorrowDate.getFullYear() + "-" + tomorrowDateMonth + "-" + tomorrowDate.getDate() + " " + tomorrowDate.getHours() + ":" + tomorrowDateMinutes;
+	      	
+      		return dateStr;
       	}
-      	var tomorrowDateStr = tomorrowDate.getFullYear() + "-" + tomorrowDate.getMonth() + "-" + tomorrowDate.getDate() + " " + tomorrowDate.getHours() + ":" + tomorrowDateMinutes;
+      	var tomorrowDateStr = getEndTime();
       	var $endTime = $("#endTime");
       	$endTime.val(tomorrowDateStr);
-      	
       	$endTime.on("tap", function() {
 //    		var optionsJson = this.getAttribute('data-options') || '{}';
 //			var options = JSON.parse(optionsJson);
+			
+      		var tomorrowDateStr = getEndTime();
+      		console.log(tomorrowDateStr);
 			var id = this.getAttribute('id');
 			/*
 			 * 首次显示时实例化组件
@@ -92,7 +102,7 @@
 			var options = {
 				"value": tomorrowDateStr
 				//d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate()
-				//"value": "2015-10-10 10:11"
+				//"value": "2015-10-1 10:11"
 			};
 			var picker = new mui.DtPicker(options);
 			picker.show(function(rs) {
