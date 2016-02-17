@@ -200,6 +200,19 @@
 					"js/zepto_1.1.3.js",
 					"js/mui.picker.min.js",
 					"css/mui.picker.min.css",
+					"js/public.js",
+					"calendar-table.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"calendar-table.html": {
+				"resources": [
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"js/zepto_1.1.3.js",
+					"index.html",
 					"js/public.js"
 				],
 				"refer": [],
