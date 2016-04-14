@@ -7,7 +7,7 @@
 	 * 常量
 	 */
 	window.pConstant = {}
-	pConstant.BaseUrl = "http://120.25.153.179/";
+	pConstant.BaseUrl = "http://120.25.153.179/thinkphp/";
 	
 	window.pTool = {};
 	/**
@@ -18,6 +18,52 @@
         return this.replace(/{(\d{1})}/g, function() {
             return args[arguments[1]];
         });
+	}
+    /**
+     * ajax 封装
+     */
+    pTool.ajax = function (para) {
+        var url = para["url"];
+        var data = para["data"];
+        var funSuccess = para["success"];
+        var funError = para["error"];
+        console.log(url);
+        $.ajax({
+	        type: 'POST',
+	        url: url,
+	        data: data,
+	        dataType: 'json',
+	        timeout: 10000,
+	        success: function(data){
+	        	funSuccess(data);
+	        },
+	        error: function(xhr, type){
+	        	funError(xhr, type);
+	        }
+        });
+    }
+    /**
+     * ajax mui封装
+     */
+    pTool.ajaxMui = function (para) {
+        var url = para["url"];
+        var data = para["data"];
+        var funSuccess = para["success"];
+        var funError = para["error"];
+        console.log(url);
+        mui.ajax(url, {
+      		data: data,
+			dataType:'json',//服务器返回json格式数据
+			type:'post',//HTTP请求类型
+			timeout: 10000,//超时时间设置为10秒；
+			success: function(data) {
+				console.log(JSON.stringify(data));
+				funSuccess(data);
+			},
+			error: function(xhr, type, errorThrown){
+				funError(xhr, type, errorThrown);
+			}
+		});
 	}
 	//'http://api.zhubaotuan.net/h5.php/
 	//pConstant.BaseUrl = "http://api.zhubaotuan.net/h5.php/";
