@@ -5,8 +5,8 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<title></title>
-		<link href="css/mui.min.css" rel="stylesheet" />
-		<link href="css/style.css" rel="stylesheet" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/style.css" rel="stylesheet" />
 		<style>
 			.area {
 				margin: 20px auto 0px auto;
@@ -73,6 +73,7 @@
 	</head>
 	<body>
 		<header class="mui-bar mui-bar-nav">
+			<!--a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a-->
 			<h1 class="mui-title">登录</h1>
 		</header>
 		<div class="mui-content">
@@ -98,42 +99,73 @@
 			</form>
 			<div class="mui-content-padded">
 				<button id='login' class="mui-btn mui-btn-block mui-btn-primary">登录</button>
-				<div class="link-area"><a id='reg'>注册账号</a> <span class="spliter">|</span> <a id='forgetPassword'>忘记密码</a>
+				<div class="link-area">
+					<a id='reg'>注册账号</a>
+					<span class="spliter">|</span>
+					<a id='forgetPassword'>忘记密码</a>
 				</div>
 			</div>
 			<div class="mui-content-padded oauth-area">
 
 			</div>
 		</div>
-		<script src="js/mui.min.js"></script>
-		<script src="js/mui.enterfocus.js"></script>
-		<script src="js/app.js"></script>
+    	<script src="../../js/zepto_1.1.3.js"></script>
+    	<script src="../../js/public.js"></script>
+    	<script src="../../js/md5.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/mui.enterfocus.js"></script>
+		<script src="../../js/login.js"></script>
 		<script>
+			var state = app.getState();
+			if ( state["userName"] != undefined && state["userName"] != "" ) {
+				//$("#login").html(state["userName"]).addClass(OpenWClass);
+				window.location.href = "../../" + pConstant.pages.main;
+				//return false;
+			}
 			(function($, doc) {
 				$.init({
-					statusBarBackground: '#f7f7f7'
+					statusBarBackground: '#f7f7f7',
+					beforeback: function(){
+						console.log("==========================login");
+						return true;
+					}
 				});
 				$.plusReady(function() {
 					plus.screen.lockOrientation("portrait-primary");
 					var settings = app.getSettings();
 					var state = app.getState();
-					var mainPage = $.preload({
-						"id": 'main',
-						"url": 'main.html'
-					});
+//					var mainPage = $.preload({
+//						"id": 'main',
+//						"url": '../../main.html'
+//					});
 					var toMain = function() {
-						$.fire(mainPage, 'show', null);
-						setTimeout(function() {
-							$.openWindow({
-								id: 'main',
-								show: {
-									aniShow: 'pop-in'
-								},
-								waiting: {
-									autoShow: false
-								}
-							});
-						}, 0);
+						/*$.fire(mainPage, 'show', null);*/
+//						setTimeout(function() {
+//							$.openWindow({
+//								url: '../../main.html',
+//								id: 'main',
+//								show: {
+//									aniShow: 'pop-in'
+//								},
+//								waiting: {
+//									autoShow: false
+//								}
+//							});
+//							/*设置首页*/
+//							
+//						}, 0);
+//						$.openWindow({
+//							url: '../../main.html',
+//							id: 'main',
+//							createNew: true,
+//							show: {
+//								aniShow: 'pop-in'
+//							},
+//							waiting: {
+//								autoShow: false
+//							}
+//						});
+						window.location.href = "../../" + pConstant.pages.main;
 					};
 					//检查 "登录状态/锁屏状态" 开始
 					if (settings.autoLogin && state.token && settings.gestures) {
@@ -151,46 +183,47 @@
 						toMain();
 					} else {
 						//第三方登录
-						var auths = {};
-						var oauthArea = doc.querySelector('.oauth-area');
-						plus.oauth.getServices(function(services) {
-							for (var i in services) {
-								var service = services[i];
-								auths[service.id] = service;
-								var btn = document.createElement('div');
-								btn.setAttribute('class', 'oauth-btn');
-								btn.authId = service.id;
-								btn.style.backgroundImage = 'url("images/' + service.id + '.png")'
-									//alert(service.id);
-									//btn.innerText = service.description + "登录";
-								oauthArea.appendChild(btn);
-							}
-							$(oauthArea).on('tap', '.oauth-btn', function() {
-								var auth = auths[this.authId];
-								var waiting = plus.nativeUI.showWaiting();
-								auth.login(function() {
-									waiting.close();
-									plus.nativeUI.toast("登录认证成功");
-									//alert(JSON.stringify(auth.authResult));
-									auth.getUserInfo(function() {
-										plus.nativeUI.toast("获取用户信息成功");
-										//alert(JSON.stringify(auth.userInfo));
-										var name = auth.userInfo.nickname || auth.userInfo.name;
-										app.createState(name, function() {
-											toMain();
-										});
-									}, function(e) {
-										plus.nativeUI.toast("获取用户信息失败：" + e.message);
-									});
-								}, function(e) {
-									waiting.close();
-									plus.nativeUI.toast("登录认证失败：" + e.message);
-								});
-							});
-						}, function(e) {
-							oauthArea.style.display = 'none';
-							plus.nativeUI.toast("获取登录认证失败：" + e.message);
-						});
+//						var auths = {};
+//						var oauthArea = doc.querySelector('.oauth-area');
+//						console.log("第三方登录");
+//						plus.oauth.getServices(function(services) {
+//							for (var i in services) {
+//								var service = services[i];
+//								auths[service.id] = service;
+//								var btn = document.createElement('div');
+//								btn.setAttribute('class', 'oauth-btn');
+//								btn.authId = service.id;
+//								btn.style.backgroundImage = 'url("../../images/' + service.id + '.png")'
+//									//alert(service.id);
+//									//btn.innerText = service.description + "登录";
+//								oauthArea.appendChild(btn);
+//							}
+//							$(oauthArea).on('tap', '.oauth-btn', function() {
+//								var auth = auths[this.authId];
+//								var waiting = plus.nativeUI.showWaiting();
+//								auth.login(function() {
+//									waiting.close();
+//									plus.nativeUI.toast("登录认证成功");
+//									//alert(JSON.stringify(auth.authResult));
+//									auth.getUserInfo(function() {
+//										plus.nativeUI.toast("获取用户信息成功");
+//										//alert(JSON.stringify(auth.userInfo));
+//										var name = auth.userInfo.nickname || auth.userInfo.name;
+//										app.createState(name, function() {
+//											toMain();
+//										});
+//									}, function(e) {
+//										plus.nativeUI.toast("获取用户信息失败：" + e.message);
+//									});
+//								}, function(e) {
+//									waiting.close();
+//									plus.nativeUI.toast("登录认证失败：" + e.message);
+//								});
+//							});
+//						}, function(e) {
+//							oauthArea.style.display = 'none';
+//							plus.nativeUI.toast("获取登录认证失败：" + e.message);
+//						});
 					}
 					// close splash
 					setTimeout(function() {
@@ -206,11 +239,20 @@
 					var forgetButton = doc.getElementById('forgetPassword');
 					loginButton.addEventListener('tap', function(event) {
 						var loginInfo = {
-							account: accountBox.value,
-							password: passwordBox.value
+							userName: accountBox.value,
+							userPw: passwordBox.value
 						};
+//						app.login(loginInfo, function(err) {
+//							if (err) {
+//								console.log(err);
+//								plus.nativeUI.toast(err);
+//								return;
+//							}
+//							toMain();
+//						});
 						app.login(loginInfo, function(err) {
 							if (err) {
+								console.log(err);
 								plus.nativeUI.toast(err);
 								return;
 							}
@@ -263,19 +305,19 @@
 						oauthArea.style.display = document.body.clientHeight > 400 ? 'block' : 'none';
 					}, false);
 					//
-					var backButtonPress = 0;
-					$.back = function(event) {
-						backButtonPress++;
-						if (backButtonPress > 1) {
-							plus.runtime.quit();
-						} else {
-							plus.nativeUI.toast('再按一次退出应用');
-						}
-						setTimeout(function() {
-							backButtonPress = 0;
-						}, 1000);
-						return false;
-					};
+//					var backButtonPress = 0;
+//					$.back = function(event) {
+//						backButtonPress++;
+//						if (backButtonPress > 1) {
+//							plus.runtime.quit();
+//						} else {
+//							plus.nativeUI.toast('再按一次退出应用');
+//						}
+//						setTimeout(function() {
+//							backButtonPress = 0;
+//						}, 1000);
+//						return false;
+//					};
 				});
 			}(mui, document));
 		</script>

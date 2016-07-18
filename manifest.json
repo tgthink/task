@@ -10,7 +10,7 @@
 	"icons": {
 		"72": "icon.png"
 	},
-	"launch_path": "main.html",/*应用的入口页面，默认为根目录下的index.html；支持网络地址，必须以http://或https://开头*/
+	"launch_path": "examples/login/login.html",/*应用的入口页面，默认为根目录下的index.html；支持网络地址，必须以http://或https://开头*/
 	"developer": {
 		"name": "",/*开发者名称*/
 		"email": "",/*开发者邮箱地址*/
@@ -224,9 +224,18 @@
 					"css/iconfont.css",
 					"css/mui.min.css",
 					"index.html",
-					"taskList.html"
+					"taskList.html",
+					"js/zepto_1.1.3.js",
+					"js/mui.min.js",
+					"js/public.js",
+					"js/login.js",
+					"calendar-table.html",
+					"examples/friendsList.html"
 				],
-				"refer": [],
+				"refer": [
+					"examples/login/login.html",
+					"examples/login/setting.html"
+				],
 				"priority": 0
 			},
 			"taskList.html": {
@@ -252,6 +261,130 @@
 					"js/mui.picker.min.js",
 					"js/mui.min.js",
 					"js/public.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"examples/login/login.html": {
+				"resources": [
+					"js/zepto_1.1.3.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"js/public.js",
+					"js/login.js",
+					"css/mui.min.css",
+					"js/mui.enterfocus.js",
+					"js/md5.js",
+					"examples/login/main.html",
+					"main.html"
+				],
+				"refer": [
+					"examples/login/reg.html",
+					"examples/login/forget_password.html"
+				],
+				"priority": 0
+			},
+			"examples/friendsList.html": {
+				"resources": [
+					"css/mui.min.css",
+					"css/mui.picker.min.css",
+					"fonts/mui.ttf",
+					"examples/friendsAdd.html",
+					"js/zepto_1.1.3.js",
+					"js/mui.min.js",
+					"js/public.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"examples/friendsAdd.html": {
+				"resources": [
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"css/mui.picker.min.css",
+					"css/public.css",
+					"js/zepto_1.1.3.js",
+					"js/mui.min.js",
+					"js/public.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"friendsList.html": {
+				"resources": [
+					"js/zepto_1.1.3.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"js/public.js",
+					"css/mui.min.css",
+					"css/mui.picker.min.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"login.html": {
+				"resources": [
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"js/mui.enterfocus.js",
+					"js/zepto_1.1.3.js",
+					"js/public.js",
+					"js/login.js",
+					"js/md5.js",
+					"fonts/mui.ttf",
+					"main.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"examples/login/setting.html": {
+				"resources": [
+					"js/user/mui.locker.js",
+					"js/user/feedback-page.js",
+					"js/user/feedback.js",
+					"js/user/libs/easymob-webim-sdk/easemob.im-1.0.5.js",
+					"js/user/libs/easymob-webim-sdk/json2.js",
+					"js/mui.min.js",
+					"js/login.js",
+					"css/mui.min.css",
+					"js/user/libs/easymob-webim-sdk/strophe-custom-2.0.0.js",
+					"js/user/libs/easymob-webim-sdk/jquery-1.11.1.js",
+					"js/mui.view.js",
+					"fonts/mui.ttf",
+					"js/public.js"
+				],
+				"refer": [
+					"main.html",
+					"login.html",
+					"examples/login/login.html"
+				],
+				"priority": 0
+			},
+			"examples/login/main.html": {
+				"resources": [],
+				"refer": [
+					"examples/login/setting.html"
+				],
+				"priority": 0
+			},
+			"examples/login/reg.html": {
+				"resources": [
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"js/public.js",
+					"js/login.js",
+					"css/mui.min.css",
+					"js/md5.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"examples/login/forget_password.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"js/login.js",
+					"css/mui.min.css"
 				],
 				"refer": [],
 				"priority": 0

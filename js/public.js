@@ -8,6 +8,9 @@
 	 */
 	window.pConstant = {}
 	pConstant.BaseUrl = "http://120.25.153.179/thinkphp/";
+	pConstant.pages = {};
+	pConstant.pages.main = "main.html";//主界面
+	pConstant.pages.login = "login.html";//登录界面
 	
 	window.pTool = {};
 	/**
@@ -35,6 +38,7 @@
 	        dataType: 'json',
 	        timeout: 10000,
 	        success: function(data){
+	        	console.log(JSON.stringify(data));
 	        	funSuccess(data);
 	        },
 	        error: function(xhr, type){

@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title></title>
-	    <link href="css/mui.min.css" rel="stylesheet"/>
+	    <link href="./css/mui.min.css" rel="stylesheet"/>
 		<link rel="stylesheet" type="text/css" href="./css/mui.picker.min.css" />
 	</head>
 	<body>
@@ -11,15 +11,17 @@
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title">任务添加</h1>
 		</header>
-		<div class="mui-content-padded" style="margin: 5px;">
-			<form class="mui-input-group">
+		<div class="mui-content" style="margin: 5px;"><!---padded-->
+			<form id="addLearningLog" class="mui-input-group">
 				<!--div class="mui-input-row">
 					<label>Input</label>
 					<input type="text" placeholder="普通输入框">
 				</div-->
+				<!--组id：--><INPUT type="hidden" name="group_id" value="19">
+				<!--类别：--><INPUT type="hidden" name="type" value="8">
 				<div class="mui-input-row">
 					<label>内容</label>
-					<input type="text" class="mui-input-clear" placeholder="内容">
+					<input type="text" name="content" class="mui-input-clear" placeholder="内容">
 				</div>
 				<div class="mui-input-row">
 					<label>分数</label>
@@ -27,7 +29,7 @@
 				</div>
 				<div class="mui-input-row">
 					<label>结束时间</label>
-					<input id="endTime" type="text" class="" placeholder="结束时间" value="10" readonly data-options='{"value":"2015-10-10 10:10","beginYear":2010,"endYear":2020}' >
+					<input id="endTime" type="text" name="end_time" class="" placeholder="结束时间" value="10" readonly data-options='{"value":"2015-10-10 10:10","beginYear":2010,"endYear":2020}' >
 					<!--button id='pickDateBtn' type="button" class="mui-btn" style="float: right; width: auto;">选择日期</button-->
 				</div>
 
@@ -36,7 +38,7 @@
 					<input type="text" class="mui-input-speech mui-input-clear" placeholder="语音输入">
 				</div-->
 				<div class="mui-button-row">
-					<button type="button" class="mui-btn mui-btn-primary" onclick="return false;">确认</button>&nbsp;&nbsp;
+					<button id="addLearningLogBtn" type="button" class="mui-btn mui-btn-primary" >确认</button>&nbsp;&nbsp;
 					<button type="button" class="mui-btn mui-btn-danger" onclick="javascript :history.back(-1);">取消</button>
 				</div>
 			</form>
@@ -44,7 +46,8 @@
 	    <script src="./js/mui.min.js"></script>
 	    <script src="./js/zepto_1.1.3.js"></script>
 		<script src="./js/mui.picker.min.js"></script>
-		<script src="./js/public.js"></script><script type="text/javascript" charset="utf-8">
+		<script src="./js/public.js"></script>
+		<script type="text/javascript" charset="utf-8">
 	      	mui.init();
 	      	function getEndTime () {
 	      		
@@ -107,6 +110,17 @@
 					picker.dispose();
 				});
 	      	});
-	    </script>
+	    	
+	      	var $addLearningLog = $("#addLearningLog");
+	      	var $addLearningLogBtn = $("#addLearningLogBtn");
+	      	$addLearningLogBtn.on("tap", function() {
+				console.log($addLearningLog.serialize());
+				console.log("==============================");
+				$.post(pConstant.BaseUrl + "index.php/Home/LearningLog/addLearningLog", $addLearningLog.serialize(), function(data) {
+					alert(data["msg"]);
+				},"json");
+				return false;
+	      	});
+		</script>
 	</body>
 </html>

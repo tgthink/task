@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	    <meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>好友添加</title>
+	    <link href="../css/mui.min.css" rel="stylesheet"/>
+		<link rel="stylesheet" type="text/css" href="../css/mui.picker.min.css" />
+		<link rel="stylesheet" type="text/css" href="../css/public.css" />
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">好友添加</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-content-padded clearfloat" style="margin: 5px;">
+				<!--div-->
+					<div class="mui-input-row mui-search" style="float: left; width: 80%;" >
+						<input id="bind_search_text" type="search" class="mui-input-clear" placeholder="" style="">
+					</div>
+					<div style="float: left; width: 18%; margin-left: 2%;">
+						<button id="bind_search" type="button" class="mui-btn mui-btn-primary" onclick="return false;" style="width: 100%;">搜索</button>
+					</div>
+				<!--/div-->
+			</div>
+			<div class="mui-content-padded" >
+				<ul id="userList" class="mui-table-view">
+					 <!--li class="mui-table-view-cell">Item 1</li>
+			         <li class="mui-table-view-cell">Item 2</li>
+			         <li class="mui-table-view-cell">Item 3</li-->
+				</ul>
+			</div>
+		</div>
+	    <script src="../js/mui.min.js"></script>
+	    <script src="../js/zepto_1.1.3.js"></script>
+		<script src="../js/public.js"></script>
+	    <script type="text/javascript" charset="utf-8">
+	    	function openUserInfo(user_id) {
+	    		plus.nativeUI.toast(user_id);
+	    		pTool.ajax({
+					url: pConstant.BaseUrl + "index.php/Home/User/getUserInfoById",
+					data: {
+						userId: user_id
+					},
+					success: function(data) {
+					},
+					error: function(xhr,type,errorThrown) {
+						plus.nativeUI.toast("网络不给力");
+					}
+				});
+	    	}
+	    	$("#bind_search").on("click", function() {
+	    		var searchText = $("#bind_search_text").val();
+	    		if ( searchText != "" ) {
+					pTool.ajax({
+						url: pConstant.BaseUrl + "index.php/Home/User/search",
+						data: {
+							userName: searchText
+						},
+						success: function(data) {
+							var getData = data["data"];
+							var userListHtml = [];
+							for (var i = 0; i < getData["list"].length; i++) {
+								var item = getData["list"][i];
+								var htmlString = pTool.format.apply(
+									'<li id="userId-{1}" class="mui-table-view-cell" onclick="openUserInfo(\'{1}\')" >{0}</li>',
+									[
+										item["user_name"],	//0
+										item["user_id"],
+										//item["head_img_url"]
+									]
+								);
+								userListHtml.push(htmlString);
+							}
+							$("#userList").html(userListHtml.join(""));
+						},
+						error: function(xhr,type,errorThrown) {
+							plus.nativeUI.toast("网络不给力");
+						}
+					});
+	    		} else {
+	    			plus.nativeUI.toast("用户名不能为空");
+	    		}
+	    	});
+	    </script>
+	</body>
+</html>
